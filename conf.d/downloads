@@ -5,7 +5,11 @@ dl() {
     cd $2; curl -L -f -o limesurvey.tar.gz $PROXY $1; cd -
 }
 
-VERSION="206plus-build150831"
-URL="http://download.limesurvey.org/latest-stable-release/limesurvey${VERSION}.tar.gz"
+VERSION="206"
+VERSION="${VERSION}plus-build"
+URL="https://www.limesurvey.org/en/downloads/category/25-latest-stable-release"
+BUILD=$(curl $URL | grep "${VERSION}.*.tar.gz" | sed "s|^.*$VERSION||; s|.tar.gz.*$||")
+
+URL="http://download.limesurvey.org/latest-stable-release/limesurvey${VERSION}${BUILD}.tar.gz"
 
 dl $URL /usr/local/src
